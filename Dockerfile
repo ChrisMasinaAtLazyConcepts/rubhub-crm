@@ -1,7 +1,9 @@
 # Build stage
-FROM node:18-alpine as build
+FROM node:18-alpine AS build
 WORKDIR /app
 COPY package*.json ./
+RUN npm config set registry https://registry.npmjs.org/ && \
+    npm ci --verbose
 RUN npm ci
 COPY . .
 RUN npm run build
