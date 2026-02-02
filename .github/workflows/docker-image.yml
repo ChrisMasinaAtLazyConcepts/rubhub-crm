@@ -2,7 +2,7 @@ name: Build and Deploy to Google Cloud Run
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 env:
   PROJECT_ID: rubhub
