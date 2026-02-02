@@ -2,10 +2,11 @@
 FROM node:18-alpine as build
 WORKDIR /app
 COPY package*.json ./
+
 # Production stage
 FROM node:18-alpine
 RUN npm install -g serve
-COPY --from=build /dist ./dist
+COPY --from=build /app/dist ./dist
 
 EXPOSE 80
 
