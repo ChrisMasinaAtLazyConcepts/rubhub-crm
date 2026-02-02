@@ -27,11 +27,6 @@ jobs:
       - name: Setup npm cache
         run: npm config set cache /tmp/.npm
 
-      - name: Remove node_modules and package-lock.json
-        run: |
-          rm -rf node_modules
-          rm package-lock.json
-
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
