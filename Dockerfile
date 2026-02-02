@@ -1,30 +1,26 @@
 # Build stage
-FROM node:18-alpine AS builder
+FROM node:18-alpine AS build
 WORKDIR /app
-
-# Copy package files
 COPY package*.json ./
-RUN npm ci
-
-# Copy source and build
+RUN npm ci --verbose
 COPY . .
-RUN npm run build  # This must create a 'build', 'dist', or similar folder
+RUN npm run build  # This creates /app/dist
 
-# Production stage - Use official NGINX
+# Production stage with NGINX
 FROM nginx:alpine
 
 # Remove default NGINX files
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copy built files from builder stage to NGINX directory
-COPY --from=builder /app/build /usr/share/nginx/html  # For React (create-react-app)
-# OR: COPY --from=builder /app/dist /usr/share/nginx/html  # For Vue/Angular/Vite
+# Copy your React build to NGINX directory
+COPY --from=build /app/dist /usr/share/nginx/html
 
 # Copy your custom NGINX config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Expose port 80 (NGINX default)
+# Verify files were copied (debug step - optional)
+RUN echo "Files in NGINX directory:" && ls -la /usr/share/nginx/html/
+
 EXPOSE 80
 
-# Start NGINX
 CMD ["nginx", "-g", "daemon off;"]
