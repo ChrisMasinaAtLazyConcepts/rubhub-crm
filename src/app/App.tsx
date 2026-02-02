@@ -27,6 +27,11 @@ import GeofencingPage from './pages/Geofencing';
 import Security from './pages/Security';
 
 const App: React.FC = () => {
+	  useEffect(() => {
+    console.log('App mounted - React is working!');
+    console.log('Environment:', process.env.NODE_ENV);
+  }, []);
+
   return (                   
       <Router>
         <AuthProvider>
