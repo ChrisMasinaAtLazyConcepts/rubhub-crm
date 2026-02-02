@@ -1,50 +1,47 @@
-name: Build and push Docker image
+name: Build and Deploy to Google Cloud Run
+
 on:
   push:
-    branches:
-      - master
+    branches: [ main ]
 
 env:
-  DOCKER_USERNAME: chrisdockeruser879 
-  REPO_NAME: chrisdockeruser879/rubhub
+  PROJECT_ID: rubhub
+  SERVICE_NAME: rubhub-crm
+  REGION: africa-south1
+
 permissions:
-  packages: write
   contents: read
+  id-token: write
 
 jobs:
-  build-and-push:
+  deploy:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v4
 
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
+    - name: Google Auth
+      id: auth
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      - name: Setup npm cache
-        run: npm config set cache /tmp/.npm
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
 
-      - name: Remove node_modules and package-lock.json
-        run: |
-          rm -rf node_modules
-          rm package-lock.json
+    - name: Configure Docker
+      run: gcloud auth configure-docker gcr.io
 
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
+    - name: Build and Push to GCR
+      run: |
+        docker build -t gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA .
+        docker push gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA
 
-      - name: Build React app
-        run: npm run build
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: chrisdockeruser879
-          password: ${{ secrets.DOCKER_TOKEN }}
-
-      - name: Build and push Docker image
-        run: |
-         # Push to YOUR personal Docker Hub account
-         docker build -t chrisdockeruser879/rubhub:latest .
-         docker push chrisdockeruser879/rubhub:latest
+    - name: Deploy to Cloud Run
+      run: |
+        gcloud run deploy $SERVICE_NAME \
+          --image=gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA \
+          --region=$REGION \
+          --allow-unauthenticated \
+          --platform=managed
