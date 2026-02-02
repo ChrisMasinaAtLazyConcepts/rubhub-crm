@@ -4,12 +4,12 @@ on:
     branches:
       - master
 
+env:
+  DOCKER_USERNAME: chrisdockeruser879 
+  REPO_NAME: chrisdockeruser879/rubhub
 permissions:
   packages: write
   contents: read
-env:
-  DOCKER_USERNAME: chrisdockeruser879 
-  REPO_NAME: chrisdockeruser879/fastway
 
 jobs:
   build-and-push:
