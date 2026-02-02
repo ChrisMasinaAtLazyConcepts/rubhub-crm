@@ -5,7 +5,7 @@ COPY package*.json ./
 # Production stage
 FROM node:18-alpine
 RUN npm install -g serve
-COPY --from=build /app/dist ./dist
+COPY --from=build /dist ./dist
 
 EXPOSE 80
 
