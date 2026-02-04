@@ -1,13 +1,13 @@
-import React, { useState } from 'react';  // Combine them
+import React, { useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 import { useDatabase } from '../hooks/useDatabase';
 import { 
-  Star, Download, User, ArrowRight,
   Heart, Shield, CreditCard, Lock,
-  Sparkles, TrendingUp, Users, Calendar,
-  Zap, CheckCircle, Award, MapPin
+  Sparkles, Users, Calendar,
+  CheckCircle, Award, MapPin, ArrowRight,
+  Star, Download, User, TrendingUp, Zap
 } from 'lucide-react';
-
+import PopiaTermsPopup from '../components/PopiaTermsPopup';
 
 function SignUp() {
   const { saveTherapistData, isLoading } = useDatabase();
@@ -21,6 +21,8 @@ function SignUp() {
     speciality: '',
   });
   const [loading, setLoading] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -30,17 +32,28 @@ function SignUp() {
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     }));
   };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Validation
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.cell) {
-      toast.error('Please fill in all required fields');
-      return;
-    }
-    
-    setLoading(true);
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault(); // Make sure this is at the VERY TOP
+  
+  console.log('Form submission started'); // Debug log
+  
+  // Check if terms are accepted
+  if (!termsAccepted) {
+    toast.error('Please accept the Terms of Service');
+    setShowTerms(true);
+    return;
+  }
+  
+  // Validation
+  if (!formData.firstName || !formData.lastName || !formData.email || !formData.cell) {
+    toast.error('Please fill in all required fields');
+    return;
+  }
+  
+  setLoading(true);
+  
+  try {
+    console.log('Calling saveTherapistData...'); // Debug log
     
     // Use the hook to save to PostgreSQL
     const result = await saveTherapistData({
@@ -53,7 +66,7 @@ function SignUp() {
       speciality: formData.speciality
     });
 
-    setLoading(false);
+    console.log('Result from saveTherapistData:', result); // Debug log
 
     if (result.success) {
       // Reset form on success
@@ -72,7 +85,13 @@ function SignUp() {
     } else {
       toast.error(result.error || 'Failed to submit application');
     }
-  };
+  } catch (error) {
+    console.error('Error in handleSubmit:', error);
+    toast.error('An unexpected error occurred');
+  } finally {
+    setLoading(false);
+  }
+};
 
   const specialities = [
     'Swedish Massage',
@@ -88,9 +107,17 @@ function SignUp() {
     'Mobile Spa Services'
   ];
 
-return (
-  <div className="min-h-screen bg-gradient-to-b from-[#F0FFF4] to-white flex flex-col">
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-[#F0FFF4] to-white flex flex-col">
+      {/* POPIA Terms Popup */}
+      <PopiaTermsPopup
+        isOpen={showTerms}
+        onClose={() => setShowTerms(false)}
+        onAccept={() => setTermsAccepted(true)}
+      />
+      
       <Toaster position="top-right" />
+      
       {/* Navigation */}
       <nav className="bg-white border-b border-green-50 py-4 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
@@ -99,26 +126,11 @@ return (
               <Heart className="w-5 h-5 text-white" />
             </div>
             <span className="text-2xl font-bold text-green-800">Mobile Spa</span>
-            <span className="hidden sm:inline text-sm text-green-600 bg-green-50 px-2 py-1 rounded-full">
-              Premium
-            </span>
-          </div>
-          <div className="flex items-center space-x-4">
-            <a href="#features" className="text-green-700 hover:text-green-900 font-medium">
-              Benefits
-            </a>
-            <a href="#earnings" className="text-green-700 hover:text-green-900 font-medium">
-              Earnings
-            </a>
-            <a href="#signup" className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 flex items-center">
-              <User className="w-4 h-4 mr-2" />
-              Join Our Team
-            </a>
           </div>
         </div>
       </nav>
       
-      {/* Hero Section - ONLY fix the SVG */}
+      {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-green-600 to-emerald-700 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h100v100H0z\' fill=\'none\'/%3E%3Cpath d=\'M20 20h10v10H20zM70 70h10v10H70z\' fill=\'white\' fill-opacity=\'0.05\'/%3E%3C/svg%3E')]"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
@@ -126,36 +138,17 @@ return (
             <div>
               <div className="inline-flex items-center bg-white/20 rounded-full px-4 py-1 mb-4">
                 <Sparkles className="w-4 h-4 mr-2" />
-                <span className="text-sm">Join South Africa's First Mobile Spa Network</span>
+                <span className="text-sm">Mobile Spa Network</span>
               </div>
               <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                On-demand Spa Service
+                Introducing
                 <br />
-                <span className="text-green-300">To Doorstep</span>
+                <span className="text-green-300">South Africa's Premier On-Demand Mobile Massage Platform</span>
               </h1>
               
               <p className="text-lg text-white/90 mb-8 max-w-lg">
                 Mobile Spa connects elite wellness professionals with clients who demand premium at-home experiences.
-                <span className="block mt-2 font-semibold">Average therapist earnings: R9,500+ per week</span>
               </p>
-              
-              <div className="flex flex-wrap gap-4 mb-6">
-                <div className="flex items-center">
-                  <CheckCircle className="w-5 h-5 text-green-300 mr-2" />
-                  <span>Keep track of your earnings</span>
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="w-5 h-5 text-green-300 mr-2" />
-                  <span>Premium mobile spa kit</span>
-                </div>
-              </div>
-              
-              <div className="flex flex-wrap gap-4">
-                <a href="#signup" className="bg-white text-green-700 hover:bg-white/90 px-6 py-3 rounded-lg font-medium inline-flex items-center text-lg shadow-lg">
-                  <Zap className="w-5 h-5 mr-2" />
-                  Start Your Mobile Spa Journey
-                </a>
-              </div>
             </div>
             
             <div className="hidden lg:flex justify-center">
@@ -165,13 +158,10 @@ return (
                     <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
                       <MapPin className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-white font-bold text-2xl mb-2">Coming soon</h3>
-                    <p className="text-white/70">Avg. Monthly Earnings</p>
                     <div className="mt-6 flex items-center justify-center">
                       <div className="w-2 h-2 bg-green-300 rounded-full mr-1"></div>
                       <div className="w-2 h-2 bg-green-300 rounded-full mr-1"></div>
                       <div className="w-2 h-2 bg-green-300 rounded-full"></div>
-                      <span className="text-sm text-white/70 ml-2">Live Bookings</span>
                     </div>
                   </div>
                 </div>
@@ -179,36 +169,11 @@ return (
                   <div className="flex items-center">
                     <Users className="w-8 h-8 text-green-600 mr-3" />
                     <div>
-                      <p className="font-bold text-gray-900">750+</p>
-                      <p className="text-sm text-gray-600">Elite Therapists</p>
+                      <p className="text-sm text-gray-600">Join Our Elite Network Of Therapists</p>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-12 bg-gradient-to-r from-green-50 to-emerald-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-800 mb-2">R58M+</div>
-              <div className="text-green-600">Paid to Therapists</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-800 mb-2">4.9★</div>
-              <div className="text-green-600">Client Rating</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-800 mb-2">24K+</div>
-              <div className="text-green-600">Premium Sessions</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-800 mb-2">96%</div>
-              <div className="text-green-600">Repeat Clients</div>
             </div>
           </div>
         </div>
@@ -242,7 +207,7 @@ return (
                     value={formData.firstName}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    placeholder="Thandi"
+                    placeholder="Name"
                     required
                   />
                 </div>
@@ -257,7 +222,7 @@ return (
                     value={formData.lastName}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                    placeholder="Mokoena"
+                    placeholder="Surname"
                     required
                   />
                 </div>
@@ -273,7 +238,7 @@ return (
                   value={formData.email}
                   onChange={handleChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  placeholder="thandi@example.com"
+                  placeholder="john.doe@example.com"
                   required
                 />
               </div>
@@ -348,10 +313,42 @@ return (
                 </div>
               </div>
               
+              {/* Terms Acceptance Section */}
+              <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <div className="flex items-start">
+                  <input
+                    type="checkbox"
+                    id="terms-checkbox"
+                    checked={termsAccepted}
+                    onChange={(e) => setTermsAccepted(e.target.checked)}
+                    className="w-5 h-5 text-green-600 rounded border-gray-300 focus:ring-green-500 mt-1 mr-3"
+                  />
+                  <div>
+                    <label htmlFor="terms-checkbox" className="text-sm font-medium text-gray-700">
+                      I agree to the{' '}
+                      <button
+                        type="button"
+                        onClick={() => setShowTerms(true)}
+                        className="text-green-600 hover:text-green-800 underline focus:outline-none font-semibold"
+                      >
+                        Terms of Service & POPIA Compliance
+                      </button>
+                    </label>
+                    <p className="text-xs text-gray-500 mt-1">
+                      By checking this box, you acknowledge that you have read, understood, and agree to 
+                      our Terms of Service and how we process your personal information in compliance 
+                      with the Protection of Personal Information Act (POPIA).
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
               <button
                 type="submit"
-                disabled={loading}
-                className="w-full bg-gradient-to-r from-green-600 to-emerald-700 text-white py-3 rounded-lg font-medium hover:opacity-90 disabled:opacity-50 flex items-center justify-center text-lg shadow-lg transition-all duration-300 hover:shadow-xl"
+                disabled={loading || !termsAccepted}
+                className={`w-full bg-gradient-to-r from-green-600 to-emerald-700 text-white py-3 rounded-lg font-medium transition-all duration-300 shadow-lg ${
+                  !termsAccepted ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90 hover:shadow-xl'
+                }`}
               >
                 {loading ? (
                   <>
@@ -360,22 +357,17 @@ return (
                   </>
                 ) : (
                   <>
-                    Sign up
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                    {!termsAccepted ? 'Accept Terms to Continue' : 'Sign up'}
+                    {termsAccepted && <ArrowRight className="w-4 h-4 ml-2" />}
                   </>
                 )}
               </button>
-              
-              <p className="text-xs text-gray-500 text-center">
-                By joining Mobile Spa, you agree to our Terms of Service. 
-              </p>
             </form>
           </div>
         </div>
       </section>
 
       {/* Footer with POPIA and PayFast */}
-        {/* Footer with POPIA and PayFast */}
       <footer className="mt-auto bg-gray-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid md:grid-cols-3 gap-8">
@@ -441,7 +433,6 @@ return (
                   alt="PayFast" 
                   className="h-8 w-auto bg-white p-2 rounded"
                   onError={(e) => {
-                    // Fallback if CDN fails
                     e.currentTarget.style.display = 'none';
                     const parent = e.currentTarget.parentElement;
                     if (parent) {
@@ -471,21 +462,24 @@ return (
               </div>
               
               <div className="flex flex-wrap justify-center gap-6">
-                <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors hover:underline">
+                <button 
+                  onClick={() => setShowTerms(true)}
+                  className="text-gray-400 hover:text-white text-sm transition-colors hover:underline"
+                >
                   Privacy Policy
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors hover:underline">
+                </button>
+                <button 
+                  onClick={() => setShowTerms(true)}
+                  className="text-gray-400 hover:text-white text-sm transition-colors hover:underline"
+                >
                   Terms of Service
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors hover:underline">
+                </button>
+                <button 
+                  onClick={() => setShowTerms(true)}
+                  className="text-gray-400 hover:text-white text-sm transition-colors hover:underline"
+                >
                   POPIA Compliance
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors hover:underline">
-                  Therapist Agreement
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors hover:underline">
-                  Contact Support
-                </a>
+                </button>
               </div>
             </div>
             

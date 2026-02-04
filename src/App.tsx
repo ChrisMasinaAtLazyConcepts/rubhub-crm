@@ -1,36 +1,32 @@
 // frontend/src/App.tsx
 import React from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from './app/components/Header';
+import Footer from './app/components/Footer';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './components/contexts/AuthContext';
-import { ChatProvider } from './components/contexts/ChatContext';
+import { AuthProvider } from './app/components/contexts/AuthContext';
+import { ChatProvider } from './app/components/contexts/ChatContext';
 
 // Import all pages
-import AdminDashboard from './pages/AdminDashboard';
-import HomePage from './pages/HomePage';
-import TherapistManagement from './pages/TherapistManagement';
-import PaymentManagement from './pages/PaymentManagement';
-import UserManagement from './pages/UserManagement';
-import AnalyticsDashboard from './pages/AnalyticsDashboard';
-import LiveTracking from './pages/LiveTracking';
-import BookingManagement from './pages/BookingManagement';
-import ServiceManagement from './pages/ServiceManagement';
-import CommunicationCenter from './pages/CommunicationCentre';
-import SignUp from './pages/SignUp';
-import PromotionManagement from './pages/PromotionManagement';
-import SupportCenter from './pages/SupportCenter';
-import TherapistOnboarding from './pages/TherapistOnboarding';
-import LoyaltyManagement from './pages/LoyaltyManagement';
-import TherapistTargets from './components/therapist-targets';
-import GeofencingPage from './pages/Geofencing';
-import Security from './pages/Security';
+import AdminDashboard from './app/pages/AdminDashboard';
+import HomePage from './app/pages/HomePage';
+import TherapistManagement from './app/pages/TherapistManagement';
+import PaymentManagement from './app/pages/PaymentManagement';
+import UserManagement from './app/pages/UserManagement';
+import AnalyticsDashboard from './app/pages/AnalyticsDashboard';
+import LiveTracking from './app/pages/LiveTracking';
+import BookingManagement from './app/pages/BookingManagement';
+import ServiceManagement from './app/pages/ServiceManagement';
+import CommunicationCenter from './app/pages/CommunicationCentre';
+import SignUp from './app/pages/SignUp';
+import PromotionManagement from './app/pages/PromotionManagement';
+import SupportCenter from './app/pages/SupportCenter';
+import TherapistOnboarding from './app/pages/TherapistOnboarding';
+import LoyaltyManagement from './app/pages/LoyaltyManagement';
+import TherapistTargets from './app/components/therapist-targets';
+import GeofencingPage from './app/pages/Geofencing';
+import Security from './app/pages/Security';
 
 const App: React.FC = () => {
-	  useEffect(() => {
-    console.log('App mounted - React is working!');
-    console.log('Environment:', process.env.NODE_ENV);
-  }, []);
 
   return (                   
       <Router>

@@ -1,12 +1,17 @@
-export default theme;
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './index.css';
 
-// main.tsx
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import theme from './theme';
-import App from './app/App';
+console.log('🚀 main.tsx executing...');
 
-<ThemeProvider theme={theme}>
-  <CssBaseline />
-  <App />
-</ThemeProvider>
+const rootElement = document.getElementById('root');
+if (!rootElement) {
+  throw new Error('Root element not found');
+}
+
+ReactDOM.createRoot(rootElement).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
