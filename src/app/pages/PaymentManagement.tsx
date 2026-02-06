@@ -184,7 +184,7 @@ const InvoiceModal: React.FC<InvoiceModalProps> = ({ payment, onClose }) => {
                 <h1 className="text-2xl font-bold text-gray-900">RubHub</h1>
                 <p className="text-gray-600 text-sm">Professional Therapy Services</p>
                 <p className="text-gray-500 text-xs mt-1">123 Therapy Street, Johannesburg, 2000</p>
-                <p className="text-gray-500 text-xs">support@rubhub.com | +27 11 123 4567</p>
+                <p className="text-gray-500 text-xs">support@rubhub.co.za | +27 11 123 4567</p>
               </div>
             </div>
 
@@ -411,7 +411,7 @@ const InvoiceModal: React.FC<InvoiceModalProps> = ({ payment, onClose }) => {
           <div className="text-center pt-6 border-t border-gray-200">
             <p className="text-xs text-gray-500">
               This is an computer-generated invoice and does not require a signature. 
-              For any queries, contact support@rubhub.com
+              For any queries, contact support@rubhub.co.za
             </p>
           </div>
         </div>

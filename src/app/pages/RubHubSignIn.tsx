@@ -6,10 +6,8 @@ import {
   Lock, 
   Eye, 
   EyeOff, 
-  User,
   Shield,
   Building,
-  Smartphone,
   ChevronLeft
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -94,61 +92,64 @@ function RubHubSignIn() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col">
-      <Toaster position="top-right" />
-      
-      {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200 py-4 px-6">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          {/* <Link to="/" className="flex items-center space-x-3">
-            <ChevronLeft className="w-5 h-5 text-gray-600" />
-            <span className="text-gray-600 hover:text-gray-900">Back to Mobile Spa</span>
-          </Link> */}
-          
-          {/* <div className="flex items-center space-x-4">
-            <span className="text-sm text-gray-500">New to RubHub?</span>
-            <Link 
-              to="/crm/signup" 
-              className="px-4 py-2 border border-green-600 text-green-600 rounded-lg hover:bg-green-50 transition-colors text-sm font-medium"
-            >
-              Request Access
-            </Link>
-          </div> */}
-        </div>
-      </nav>
+    <div className="min-h-screen flex flex-col relative">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0">
+        {/* High-quality background image with crisp optimization */}
+       <div 
+          className="w-full h-full bg-cover bg-center bg-no-repeat bg-fixed"
+          style={{
+            backgroundImage: 'url("https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=80&auto=format&fit=crop")',
+            // Use only one imageRendering property
+            imageRendering: 'crisp-edges'
+          }}
+        />
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-900/90 via-gray-900/80 to-gray-900/90" />
+        {/* Subtle pattern overlay for texture */}
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+            backgroundSize: '40px 40px'
+          }}
+        />
+      </div>
 
-      <div className="flex-1 flex items-center justify-center p-4">
+      <Toaster position="top-right" />
+
+      <div className="relative z-10 flex-1 flex items-center justify-center p-4">
         <div className="w-full max-w-md">
-          {/* Logo and Header */}
-          <div className="text-center mb-8">
-            {/* Logo */}
+          {/* Logo and Header with glass effect */}
+          <div className="text-center mb-8 backdrop-blur-sm bg-white/10 rounded-2xl p-8 border border-white/20">
             <div className="flex justify-center mb-4">
-              <div className="flex items-center space-x-2">
-                <span className="text-3xl font-bold text-green-600">RubHub</span>
-                <span className="text-sm text-gray-500 font-normal">CRM</span>
+              <div className="flex items-center space-x-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-600 to-emerald-400 rounded-xl flex items-center justify-center shadow-lg">
+                </div>
+                <div className="text-left">
+                  <h1 className="text-3xl font-bold text-white">RubHub</h1>
+                  <p className="text-emerald-200 text-sm font-medium">CRM Platform</p>
+                </div>
               </div>
             </div>
-           
-            <p className="text-gray-600">
+            <p className="text-gray-300 mt-4">
               Sign in to manage your Mobile Spa operations
             </p>
           </div>
 
-          {/* Sign In Card */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
+          {/* Sign In Card with glass effect */}
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/20">
             <div className="flex items-center mb-6">
-              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                <LogIn className="w-5 h-5 text-blue-600" />
+              <div className="w-10 h-10 bg-gradient-to-r from-green-600 to-emerald-400 rounded-lg flex items-center justify-center mr-3 backdrop-blur-sm">
+                <LogIn className="w-5 h-5 text-white" />
               </div>
-              <h2 className="text-xl font-bold text-gray-900">Sign In to Your Account</h2>
+              <h2 className="text-xl font-bold text-white">Sign In to Your Account</h2>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Company ID */}
-              
               {/* Email */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-200 mb-2">
                   Email Address
                 </label>
                 <div className="relative">
@@ -160,7 +161,7 @@ function RubHubSignIn() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="block w-full pl-10 pr-3 py-3 bg-white/10 border border-gray-300/30 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all text-white placeholder-gray-400 backdrop-blur-sm"
                     placeholder="you@company.com"
                     required
                   />
@@ -169,7 +170,7 @@ function RubHubSignIn() {
 
               {/* Password */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-200 mb-2">
                   Password
                 </label>
                 <div className="relative">
@@ -181,19 +182,19 @@ function RubHubSignIn() {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="block w-full pl-10 pr-10 py-3 bg-white/10 border border-gray-300/30 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all text-white placeholder-gray-400 backdrop-blur-sm"
                     placeholder="••••••••"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300"
                   >
                     {showPassword ? (
-                      <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                      <EyeOff className="h-5 w-5" />
                     ) : (
-                      <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                      <Eye className="h-5 w-5" />
                     )}
                   </button>
                 </div>
@@ -206,26 +207,25 @@ function RubHubSignIn() {
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    className="w-4 h-4 text-emerald-500 bg-white/10 border-gray-300/30 rounded focus:ring-emerald-500"
                   />
-                  <span className="ml-2 text-sm text-gray-700">Remember me</span>
+                  <span className="ml-2 text-sm text-gray-300">Remember me</span>
                 </label>
                 
                 <Link 
                   to="/crm/forgot-password" 
-                  className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                  className="text-sm text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
                 >
                   Forgot password?
                 </Link>
               </div>
 
-           
               {/* Sign In Button */}
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full bg-gradient-to-r from-green-800 to-green-300 text-white py-3 rounded-lg font-medium transition-all duration-300 shadow-lg flex items-center justify-center ${
-                  loading ? 'opacity-80 cursor-not-allowed' : 'hover:opacity-90 hover:shadow-xl'
+                className={`w-full bg-gradient-to-r from-green-700 to-emerald-500 text-white py-3 rounded-lg font-medium transition-all duration-300 shadow-lg flex items-center justify-center backdrop-blur-sm ${
+                  loading ? 'opacity-80 cursor-not-allowed' : 'hover:opacity-90 hover:shadow-xl transform hover:-translate-y-0.5'
                 }`}
               >
                 {loading ? (
@@ -242,99 +242,10 @@ function RubHubSignIn() {
               </button>
             </form>
 
-            {/* Divider */}
-            <div className="mt-8 mb-6">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300"></div>
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-white text-gray-500">Or sign in with</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Alternative Sign In Methods */}
-            <div className="space-y-3">
-             
-            </div>
-
-            {/* Support Info */}
-            <div className="mt-8 pt-6 border-t border-gray-200">
-              <div className="flex items-center justify-center text-sm text-gray-500">
-                <Shield className="w-4 h-4 mr-2" />
-              </div>
-              
-             
-            </div>
           </div>
 
-          {/* Footer Links */}
-          <div className="mt-8 text-center space-y-2">
-            <p className="text-sm text-gray-600">
-              By signing in, you agree to our{' '}
-              <Link to="/terms" className="text-blue-600 hover:underline font-medium">
-                Terms of Service
-              </Link>{' '}
-              and{' '}
-              <Link to="/privacy" className="text-blue-600 hover:underline font-medium">
-                Privacy Policy
-              </Link>
-            </p>
-            
-            <p className="text-sm text-gray-600">
-              © {new Date().getFullYear()} RubHub CRM. A Mobile Spa Network product.
-            </p>
-          </div>
         </div>
       </div>
-
-      {/* Features Preview
-      <div className="hidden lg:block fixed right-0 top-0 bottom-0 w-1/3 bg-gradient-to-b from-blue-900 to-purple-900 p-12">
-        <div className="h-full flex flex-col justify-center">
-          <h3 className="text-2xl font-bold text-white mb-6">
-            Welcome to RubHub CRM
-          </h3>
-          
-          <div className="space-y-8">
-            <div className="flex items-start">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-4">
-                <User className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h4 className="text-lg font-semibold text-white mb-1">Therapist Management</h4>
-                <p className="text-blue-100">
-                  Manage your entire therapist network from one dashboard
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex items-start">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-4">
-                <Building className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h4 className="text-lg font-semibold text-white mb-1">Booking Management</h4>
-                <p className="text-blue-100">
-                  Real-time booking system with automated scheduling
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex items-start">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-4">
-                <Smartphone className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h4 className="text-lg font-semibold text-white mb-1">Mobile Access</h4>
-                <p className="text-blue-100">
-                  Access your CRM from any device, anywhere
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 }

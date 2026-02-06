@@ -414,7 +414,7 @@ const Header: React.FC = () => {
                 </div>
                 <div className="hidden sm:block text-right">
                   <p className="text-sm font-medium text-gray-700">Administrator</p>
-                  <p className="text-xs text-gray-500">admin@rubhub.com</p>
+                  <p className="text-xs text-gray-500">admin@rubhub.co.za</p>
                 </div>
               </div>
             </div>
@@ -515,7 +515,7 @@ const Header: React.FC = () => {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-gray-900 truncate">Administrator</p>
-              <p className="text-sm text-gray-500 truncate">admin@rubhub.com</p>
+              <p className="text-sm text-gray-500 truncate">admin@rubhub.co.za</p>
             </div>
             <button className="p-2 text-gray-500 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors duration-200">
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
