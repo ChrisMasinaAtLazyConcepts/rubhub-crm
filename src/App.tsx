@@ -38,6 +38,7 @@ const App: React.FC = () => {
               <Routes>
                 <Route path="/" element={<SignUp />} />
                 <Route path="/signin" element={<RubHubSignIn />} />
+                <Route path="/signup" element={<SignUp />} />
                 <Route path="/*" element={
                   <>
                     <Header />
