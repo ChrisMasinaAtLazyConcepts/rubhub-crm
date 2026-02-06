@@ -24,41 +24,7 @@ interface MenuCategory {
 
 const NotificationsPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [notifications, setNotifications] = useState([
-    {
-      id: 1,
-      type: 'security',
-      title: 'Panic Button Activated',
-      message: 'Sarah Wilson activated panic button in Johannesburg',
-      time: '2 minutes ago',
-      unread: true,
-      icon: Shield,
-      color: 'text-red-600',
-      bgColor: 'bg-red-50'
-    },
-    {
-      id: 2,
-      type: 'therapist',
-      title: 'Therapist Unavailable',
-      message: 'Mike Johnson is sick and cannot make the appointment. System has automatically reassigned to Emily Chen.',
-      time: '15 minutes ago',
-      unread: true,
-      icon: User,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50'
-    },
-    {
-      id: 3,
-      type: 'system',
-      title: 'System Update',
-      message: 'Weekly maintenance completed successfully',
-      time: '1 hour ago',
-      unread: true,
-      icon: CheckCircle,
-      color: 'text-green-600',
-      bgColor: 'bg-green-50'
-    }
-  ]);
+  const [notifications, setNotifications] = useState([]);
 
   const popupRef = useRef<HTMLDivElement>(null);
 
@@ -83,21 +49,21 @@ const NotificationsPopup = () => {
     setIsOpen(!isOpen);
     // Mark all as read when opening
     if (!isOpen) {
-      setNotifications(notifications.map(notif => ({ ...notif, unread: false })));
+      // setNotifications(notifications.map(notif => ({ ...notif, unread: false })));
     }
   };
 
   const markAsRead = (id: number) => {
-    setNotifications(notifications.map(notif => 
-      notif.id === id ? { ...notif, unread: false } : notif
-    ));
+    // setNotifications(notifications.map(notif => 
+    //   notif.id === id ? { ...notif, unread: false } : notif
+    // ));
   };
 
   const clearAllNotifications = () => {
     setNotifications([]);
   };
 
-  const unreadCount = notifications.filter(notif => notif.unread).length;
+  const unreadCount = notifications.filter(notif => notif).length;
 
   return (
     <div className="relative" ref={popupRef}>
@@ -152,40 +118,38 @@ const NotificationsPopup = () => {
           </div>
         </div>
 
-        {/* Notifications List */}
         <div className="max-h-96 overflow-y-auto">
           {notifications.length > 0 ? (
             <div className="p-2">
               {notifications.map((notification) => {
-                const IconComponent = notification.icon;
+                const IconComponent = notification;
                 return (
                   <div
-                    key={notification.id}
+                    key={notification}
                     className={`
                       p-3 rounded-lg mb-2 cursor-pointer transition-all duration-200
-                      ${notification.unread ? 'bg-blue-50 border-l-4 border-blue-500' : 'bg-gray-50'}
+                      ${notification? 'bg-blue-50 border-l-4 border-blue-500' : 'bg-gray-50'}
                       hover:bg-green-50 hover:shadow-sm
                     `}
-                    onClick={() => markAsRead(notification.id)}
+                    onClick={() => markAsRead(notification)}
                   >
                     <div className="flex space-x-3">
-                      <div className={`p-2 rounded-full ${notification.bgColor}`}>
-                        <IconComponent className={`h-4 w-4 ${notification.color}`} />
+                      <div className={`p-2 rounded-full ${notification}`}>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between">
+                        {/* <div className="flex items-start justify-between">
                           <h4 className={`text-sm font-semibold ${notification.unread ? 'text-gray-900' : 'text-gray-700'}`}>
                             {notification.title}
                           </h4>
                           {notification.unread && (
                             <div className="w-2 h-2 bg-blue-500 rounded-full ml-2 flex-shrink-0 mt-1.5"></div>
                           )}
-                        </div>
+                        </div> */}
                         <p className="text-sm text-gray-600 mt-1 leading-relaxed">
-                          {notification.message}
+                          {/* {notification.message} */}
                         </p>
                         <p className="text-xs text-gray-400 mt-2">
-                          {notification.time}
+                          {/* {notification.time} */}
                         </p>
                       </div>
                     </div>
