@@ -51,7 +51,7 @@ const routeLabels: { [key: string]: string } = {
   'view': 'Details'
 };
 
-const Breadcrumbs: React.FC = () => {
+const BreadCrumbs: React.FC = () => {
   const location = useLocation();
   const params = useParams();
   const pathnames = location.pathname.split('/').filter((x) => x);
@@ -164,4 +164,4 @@ const getPageDescription = (pathname: string): string => {
   return descriptions[pathname] || 'Manage your content and settings';
 };
 
-export default Breadcrumbs;
+export default BreadCrumbs;

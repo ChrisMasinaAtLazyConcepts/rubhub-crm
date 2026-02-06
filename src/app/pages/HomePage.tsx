@@ -1,10 +1,8 @@
 // frontend/src/pages/HomePage.js
 import React, { useState } from 'react';
 import LiveMap from '../components/LiveMap';
-import StatsOverview from '../components/StatsOverview';
 import RecentRequests from '../components/RecentRequests';
 import NoServices from '../components/NoServices';
-import BreadCrumbs from "@/components/BreadCrumbs";
 
 // Define the type for province keys
 type ProvinceKey = '' | 'gauteng' | 'western-cape' | 'kzn' | 'eastern-cape' | 'free-state' | 'limpopo' | 'mpumalanga' | 'north-west' | 'northern-cape';

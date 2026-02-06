@@ -25,6 +25,7 @@ import LoyaltyManagement from './app/pages/LoyaltyManagement';
 import TherapistTargets from './app/components/therapist-targets';
 import GeofencingPage from './app/pages/Geofencing';
 import Security from './app/pages/Security';
+import RubHubSignIn from './app/pages/RubHubSignIn';
 
 const App: React.FC = () => {
 
@@ -36,15 +37,15 @@ const App: React.FC = () => {
               {/* Only show Header/Footer on authenticated routes */}
               <Routes>
                 <Route path="/" element={<SignUp />} />
+                <Route path="/signin" element={<RubHubSignIn />} />
                 <Route path="/*" element={
                   <>
                     <Header />
                     <main>
                       <Routes>
-                        <Route path="/" element={<HomePage />} />
+                        <Route path="/home" element={<HomePage />} />
                         <Route path="/admin" element={<AdminDashboard />} />
                         <Route path="/analytics" element={<AnalyticsDashboard />} />
-                        
                         <Route path="/geofencing" element={<GeofencingPage />} /> 
                         {/* Therapy Operations */}
                         <Route path="/therapists" element={<TherapistManagement />} />

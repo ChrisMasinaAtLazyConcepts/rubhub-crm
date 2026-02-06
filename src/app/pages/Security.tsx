@@ -1,6 +1,6 @@
 // frontend/src/pages/SecurityDashboard.tsx
 import React, { useState, useEffect, useRef } from 'react';
-import BreadCrumbs from "@/components/BreadCrumbs";
+import Breadcrumbs from '@mui/material/Breadcrumbs';
 
 
 // Define TypeScript interfaces

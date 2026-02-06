@@ -1,8 +1,8 @@
 // frontend/src/components/Header.tsx
 import { BarChart3, Bell, Home, Shield, Stethoscope, Users, CreditCard, X, User, CheckCircle } from 'lucide-react';
 import React, { useState, useRef, useEffect } from 'react';
+import { FaLocationPin } from 'react-icons/fa6';
 import { Link, useLocation } from 'react-router-dom';
-import { LocationPin } from 'react-icons';
 
 // Define types for menu items
 interface MenuItem {
@@ -271,7 +271,7 @@ const Header: React.FC = () => {
         },
         { 
           label: "Geofencing", 
-          icon: <GrLocationPin className="w-5 h-5" />,
+          icon: <FaLocationPin className="w-5 h-5" />,
           submenu: [
             { path: "/geofencing", label: "Service Area Management" }
           ]

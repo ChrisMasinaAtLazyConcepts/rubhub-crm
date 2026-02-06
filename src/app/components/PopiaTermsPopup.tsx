@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Shield, Lock, FileText, AlertCircle, CheckCircle } from 'lucide-react';
+import { X, Shield, Lock, FileText, AlertCircle, CheckCircle, Database, Share2, Users } from 'lucide-react';
 
 interface PopiaTermsPopupProps {
   isOpen: boolean;
@@ -101,9 +101,86 @@ const PopiaTermsPopup: React.FC<PopiaTermsPopupProps> = ({ isOpen, onClose, onAc
                 </div>
               </section>
               
-              {/* Section 3: Purpose of Processing */}
+              {/* NEW SECTION: Data Processing & Sharing */}
               <section>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">3. Purpose of Processing Your Information</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
+                  <Database className="w-5 h-5 mr-2 text-green-600" />
+                  3. Data Processing & Internal Sharing
+                </h3>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-5">
+                  <div className="flex items-start mb-4">
+                    <Share2 className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0 mt-1" />
+                    <div>
+                      <h4 className="font-bold text-blue-800">Internal Data Sharing Notice</h4>
+                      <p className="text-blue-700 mt-1">
+                        By submitting your application, you acknowledge and consent that your personal information will be processed and shared among our internal systems for operational purposes.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="bg-white p-4 rounded-lg border border-blue-100">
+                      <div className="flex items-center mb-2">
+                        <Users className="w-5 h-5 text-green-600 mr-2" />
+                        <h5 className="font-semibold text-gray-800">Internal Systems That Process Your Data</h5>
+                      </div>
+                      <ul className="text-sm text-gray-600 space-y-2">
+                        <li className="flex items-start">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span><strong>Booking Platform:</strong> For client matching and scheduling</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span><strong>Payment System:</strong> For secure payment processing via PayFast</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span><strong>CRM Database:</strong> For client relationship management</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span><strong>Quality Assurance:</strong> For service monitoring and improvement</span>
+                        </li>
+                      </ul>
+                    </div>
+                    
+                    <div className="bg-white p-4 rounded-lg border border-blue-100">
+                      <div className="flex items-center mb-2">
+                        <Shield className="w-5 h-5 text-green-600 mr-2" />
+                        <h5 className="font-semibold text-gray-800">How Your Data is Protected</h5>
+                      </div>
+                      <ul className="text-sm text-gray-600 space-y-2">
+                        <li className="flex items-start">
+                          <Lock className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span><strong>Encrypted Transfers:</strong> All data transfers between systems are encrypted</span>
+                        </li>
+                        <li className="flex items-start">
+                          <Lock className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span><strong>Access Controls:</strong> Strict role-based access permissions</span>
+                        </li>
+                        <li className="flex items-start">
+                          <Lock className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span><strong>Audit Logs:</strong> All data access is logged and monitored</span>
+                        </li>
+                        <li className="flex items-start">
+                          <Lock className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span><strong>Data Minimization:</strong> Only necessary data is shared between systems</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 p-3 bg-blue-100 rounded-lg">
+                    <p className="text-sm text-blue-800">
+                      <strong>Important:</strong> Your data will only be shared with third parties as explicitly stated in our Privacy Policy or as required by law. We do not sell your personal information to third parties.
+                    </p>
+                  </div>
+                </div>
+              </section>
+              
+              {/* Section 4: Purpose of Processing (renumbered from 3) */}
+              <section>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">4. Purpose of Processing Your Information</h3>
                 <p className="text-gray-700 mb-3">
                   We process your personal information for the following legitimate business purposes:
                 </p>
@@ -126,9 +203,9 @@ const PopiaTermsPopup: React.FC<PopiaTermsPopupProps> = ({ isOpen, onClose, onAc
                 </div>
               </section>
               
-              {/* Section 4: Your Rights under POPIA */}
+              {/* Section 5: Your Rights under POPIA (renumbered from 4) */}
               <section>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">4. Your Rights as a Data Subject</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">5. Your Rights as a Data Subject</h3>
                 <div className="bg-blue-50 border border-blue-100 rounded-lg p-5">
                   <p className="text-blue-800 font-semibold mb-3">
                     Under POPIA, you have the right to:
@@ -151,11 +228,11 @@ const PopiaTermsPopup: React.FC<PopiaTermsPopupProps> = ({ isOpen, onClose, onAc
                 </div>
               </section>
               
-              {/* Section 5: Data Security */}
+              {/* Section 6: Data Security (renumbered from 5) */}
               <section>
                 <h3 className="text-xl font-bold text-gray-900 mb-3 flex items-center">
                   <Lock className="w-5 h-5 mr-2 text-green-600" />
-                  5. Data Security Measures
+                  6. Data Security Measures
                 </h3>
                 <div className="bg-gray-50 p-5 rounded-lg">
                   <p className="text-gray-700 mb-4">
@@ -193,9 +270,9 @@ const PopiaTermsPopup: React.FC<PopiaTermsPopupProps> = ({ isOpen, onClose, onAc
                 </div>
               </section>
               
-              {/* Section 6: Contact Information */}
+              {/* Section 7: Contact Information (renumbered from 6) */}
               <section>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">6. Contact & Complaints</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">7. Contact & Complaints</h3>
                 <div className="border border-gray-200 rounded-lg p-5">
                   <p className="text-gray-700 mb-4">
                     For POPIA-related inquiries or to exercise your rights:
@@ -229,7 +306,7 @@ const PopiaTermsPopup: React.FC<PopiaTermsPopupProps> = ({ isOpen, onClose, onAc
                   className="w-4 h-4 text-green-600 rounded border-gray-300 focus:ring-green-500 mr-2"
                 />
                 <label htmlFor="terms-agreement">
-                  I have read and understood these Terms of Service and POPIA Notice
+                  I have read and understood these Terms of Service, including the Data Processing & Internal Sharing clause
                 </label>
               </div>
               

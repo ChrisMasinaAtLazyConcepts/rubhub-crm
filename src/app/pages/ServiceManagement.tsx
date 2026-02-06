@@ -1,7 +1,7 @@
 // frontend/src/pages/ServiceManagement.tsx
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit2, Settings, Search, Filter, Download } from 'lucide-react';
-import BreadCrumbs from "@/components/BreadCrumbs";
+import Breadcrumbs from '@mui/material/Breadcrumbs';
 
 interface Service {
   id: string;
